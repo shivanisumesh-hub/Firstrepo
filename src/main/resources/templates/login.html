@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — RentTOgo</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">RentTOgo</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/register">Register</a>
+    </nav>
+  </header>
+
+  <main class="centered">
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">Login to find your perfect PG</p>
+      
+      <form th:action="@{/login}" method="post">
+        <div>
+          <label style="color: var(--text-muted); font-size: 14px; margin-bottom: 6px; display: block;">Email</label>
+          <input type="email" name="email" placeholder="Enter your email" required />
+        </div>
+        
+        <div>
+          <label style="color: var(--text-muted); font-size: 14px; margin-bottom: 6px; display: block; margin-top: 12px;">Password</label>
+          <input type="password" name="password" placeholder="Enter your password" required />
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+          <label style="color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 6px;">
+            <input type="checkbox" name="remember" style="width: auto; margin: 0;" />
+            Remember me
+          </label>
+          <a href="/forgot-password" style="color: var(--accent-light); font-size: 14px; text-decoration: none;">Forgot Password?</a>
+        </div>
+        
+        <button type="submit">Login</button>
+        
+        <p style="text-align: center; margin-top: 20px; color: var(--text-muted); font-size: 14px;">
+          Don't have an account? <a href="/register" style="color: var(--accent-light); text-decoration: none; font-weight: 600;">Sign up</a>
+        </p>
+        
+        <div th:if="${error}" class="error" th:text="${error}">
+          Invalid credentials
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 RentTOgo. Your trusted PG and hostel finder.</p>
+  </footer>
+</body>
+</html>

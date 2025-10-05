@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${accommodation.name} + ' — RentTOgo'">PG Details — RentTOgo</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .detail-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .detail-header {
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .detail-header h1 {
+      font-size: 42px;
+      margin: 0 0 12px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .detail-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .detail-location {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    .detail-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .detail-main {
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    .detail-sidebar {
+      animation: fadeInUp 0.8s ease 0.3s backwards;
+    }
+
+    .detail-section {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .detail-section:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .detail-section h2 {
+      font-size: 24px;
+      margin: 0 0 20px;
+      color: var(--text);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .amenity-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .amenity-item:hover {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--text);
+    }
+
+    .price-card {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 100px;
+    }
+
+    .price-card h3 {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .price-amount {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .price-period {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .detail-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .detail-info-item:last-child {
+      border-bottom: none;
+    }
+
+    .detail-info-label {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .detail-info-value {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .contact-owner-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .contact-owner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
+    }
+
+    .rules-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .rules-list li {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 8px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 968px) {
+      .detail-content {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        position: relative;
+        top: 0;
+      }
+
+      .detail-header h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">RentTOgo</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="detail-page">
+    <div class="detail-header">
+      <div class="detail-badge" th:if="${accommodation.availableRooms > 0}">✓ Available</div>
+      <div class="detail-badge" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);" th:if="${accommodation.availableRooms == 0}">✗ Full</div>
+      <h1 th:text="${accommodation.name}">Sunshine PG</h1>
+      <div class="detail-location">
+        <span style="font-size: 24px;">📍</span>
+        <span th:text="${accommodation.address}">123 MG Road, Bangalore, Karnataka 560001</span>
+      </div>
+    </div>
+
+    <div class="detail-content">
+      <div class="detail-main">
+        <div class="detail-section">
+          <h2>📝 Description</h2>
+          <p style="color: var(--text-muted); line-height: 1.8;" th:text="${accommodation.description}">
+            Welcome to Sunshine PG, a comfortable and well-maintained paying guest accommodation located in the heart of the city. Our facility offers modern amenities, spacious rooms, and a friendly atmosphere perfect for students and working professionals.
+          </p>
+        </div>
+
+        <div class="detail-section">
+          <h2>✨ Amenities</h2>
+          <div class="amenities-grid">
+            <div class="amenity-item">
+              <span style="font-size: 20px;">📶</span>
+              <span>Free WiFi</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🍽️</span>
+              <span>Food Included</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🧺</span>
+              <span>Laundry Service</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">❄️</span>
+              <span>AC Rooms</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🅿️</span>
+              <span>Parking</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🔒</span>
+              <span>24/7 Security</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🧹</span>
+              <span>Housekeeping</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">💧</span>
+              <span>Water Supply</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h2>📋 House Rules</h2>
+          <ul class="rules-list">
+            <li>
+              <span style="font-size: 20px;">⏰</span>
+              <span>Entry time: 10:00 PM</span>
+            </li>
+            <li>
+              <span style="font-size: 20px;">🚭</span>
+              <span>No smoking inside the premises</span>
+            </li>
+            <li>
+              <span style="font-size: 20px;">🔇</span>
+              <span>Maintain silence after 10:00 PM</span>
+            </li>
+            <li>
+              <span style="font-size: 20px;">👥</span>
+              <span>Visitors allowed till 8:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="detail-sidebar">
+        <div class="price-card">
+          <h3>Monthly Rent</h3>
+          <div class="price-amount">₹<span th:text="${accommodation.pricePerMonth}">5,000</span></div>
+          <div class="price-period">per month</div>
+
+          <div style="margin: 24px 0;">
+            <div class="detail-info-item">
+              <span class="detail-info-label">Available Rooms</span>
+              <span class="detail-info-value" th:text="${accommodation.availableRooms}">3</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">Room Type</span>
+              <span class="detail-info-value" th:text="${accommodation.roomType}">Double Sharing</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">Gender</span>
+              <span class="detail-info-value" th:text="${accommodation.gender}">Male</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">Security Deposit</span>
+              <span class="detail-info-value">₹<span th:text="${accommodation.securityDeposit}">5,000</span></span>
+            </div>
+          </div>
+
+          <a href="#" class="contact-owner-btn">Contact Owner</a>
+          <a href="#" class="contact-owner-btn" style="background: rgba(30, 41, 59, 0.7); box-shadow: none; margin-top: 12px;">Schedule Visit</a>
+        </div>
+
+        <div class="detail-section" style="margin-top: 24px;">
+          <h2>👤 Owner Details</h2>
+          <div style="text-align: center; padding: 20px 0;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700;">
+              <span th:text="${#strings.substring(accommodation.ownerName, 0, 1)}">R</span>
+            </div>
+            <h3 style="margin: 0 0 8px; color: var(--text);" th:text="${accommodation.ownerName}">Rajesh Kumar</h3>
+            <p style="color: var(--text-muted); margin: 0 0 16px; font-size: 14px;">Property Owner</p>
+            <a href="tel:+919876543210" style="color: var(--accent-light); text-decoration: none; font-weight: 600;">📞 +91 98765 43210</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 RentTOgo. Your trusted PG and hostel finder.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — RentToGo</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">RentToGo</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h1>Dashboard</h1>
+        <p class="tagline">Manage and explore available accommodations</p>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-icon">🏠</div>
+          <div class="stat-info">
+            <h3 th:text="${accommodations.size()}">12</h3>
+            <p>Total PGs</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3 th:text="${#lists.size(#lists.filter(accommodations, acc -> acc.availableRooms > 0))}">8</h3>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="grid">
+        <div th:each="acc : ${accommodations}" class="card accommodation-card">
+          <div class="card-header">
+            <div class="card-badge" th:if="${acc.availableRooms > 0}">
+              <span class="badge-available">Available</span>
+            </div>
+            <div class="card-badge" th:if="${acc.availableRooms == 0}">
+              <span class="badge-full">Full</span>
+            </div>
+          </div>
+          
+          <div class="card-content">
+            <h3 th:text="${acc.name}">Sunshine PG</h3>
+            <div class="card-detail">
+              <span class="detail-icon">📍</span>
+              <p th:text="${acc.address}">123 MG Road, Bangalore</p>
+            </div>
+            
+            <div class="card-info-grid">
+              <div class="info-item">
+                <span class="info-icon">💰</span>
+                <div class="info-text">
+                  <span class="info-label">Monthly Rent</span>
+                  <span class="info-value">₹<span th:text="${acc.pricePerMonth}">5000</span></span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-icon">🛏️</span>
+                <div class="info-text">
+                  <span class="info-label">Available Rooms</span>
+                  <span class="info-value" th:text="${acc.availableRooms}">3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-actions">
+            <a href="#" class="btn-primary">View Details</a>
+            <a href="#" class="btn-secondary">Contact Owner</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .dashboard-main {
+      padding: 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .dashboard-title h1 {
+      font-size: 42px;
+      margin: 0 0 8px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .dashboard-title .tagline {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .dashboard-stats {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 20px 28px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    }
+
+    .stat-icon {
+      font-size: 32px;
+    }
+
+    .stat-info h3 {
+      font-size: 28px;
+      margin: 0;
+      color: var(--accent-light);
+      font-weight: 800;
+    }
+
+    .stat-info p {
+      margin: 4px 0 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .accommodation-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .card-badge {
+      display: inline-block;
+    }
+
+    .badge-available {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-full {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .card-content {
+      flex: 1;
+    }
+
+    .card-content h3 {
+      font-size: 24px;
+      margin: 0 0 16px;
+    }
+
+    .card-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .detail-icon {
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .card-detail p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .card-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-icon {
+      font-size: 24px;
+    }
+
+    .info-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .btn-primary, .btn-secondary {
+      flex: 1;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.6);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 968px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dashboard-stats {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        flex: 1;
+        min-width: 140px;
+      }
+
+      .dashboard-title h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .dashboard-main {
+        padding: 20px;
+      }
+
+      .card-actions {
+        flex-direction: column;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+      }
+    }
+  </style>
+</body>
+</html>

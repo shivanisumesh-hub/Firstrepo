@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RentTOgo — Find Your Perfect PG</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">RentTOgo</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#pgs">PGs & Hostels</a>
+      <a href="/login">Login</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>RentTOgo</h1>
+      <p class="tagline">Making Your Search for PGs and Hostels Simple, Fast, and Stress-Free.</p>
+      <p>Find your perfect accommodation with ease. Browse verified PGs, hostels, and paying guest options tailored to your needs and budget.</p>
+      <a href="#pgs" class="cta">Explore PGs Now</a>
+    </div>
+    <div class="hero-image">
+      <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="buildingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Background circle -->
+        <circle cx="400" cy="250" r="200" fill="url(#buildingGrad)" opacity="0.1"/>
+        
+        <!-- Main Building -->
+        <rect x="280" y="150" width="240" height="240" rx="8" fill="url(#buildingGrad)" opacity="0.9"/>
+        
+        <!-- Windows -->
+        <rect x="300" y="170" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="345" y="170" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="390" y="170" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="435" y="170" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="480" y="170" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        
+        <rect x="300" y="220" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="345" y="220" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="390" y="220" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="435" y="220" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="480" y="220" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        
+        <rect x="300" y="270" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="345" y="270" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="390" y="270" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="435" y="270" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        <rect x="480" y="270" width="35" height="35" rx="4" fill="rgba(255,255,255,0.3)"/>
+        
+        <!-- Door -->
+        <rect x="370" y="330" width="60" height="60" rx="6" fill="rgba(15, 23, 42, 0.8)"/>
+        <circle cx="415" cy="360" r="3" fill="#f1f5f9"/>
+        
+        <!-- Roof -->
+        <path d="M 270 150 L 400 100 L 530 150 Z" fill="url(#buildingGrad)"/>
+        
+        <!-- Side Buildings -->
+        <rect x="180" y="220" width="80" height="170" rx="6" fill="rgba(99, 102, 241, 0.6)"/>
+        <rect x="195" y="240" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="225" y="240" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="195" y="270" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="225" y="270" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        
+        <rect x="540" y="220" width="80" height="170" rx="6" fill="rgba(139, 92, 246, 0.6)"/>
+        <rect x="555" y="240" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="585" y="240" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="555" y="270" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="585" y="270" width="20" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+        
+        <!-- Floating Icons -->
+        <g opacity="0.7">
+          <path d="M 120 180 Q 140 160 160 180" stroke="#6366f1" stroke-width="3" fill="none"/>
+          <path d="M 127 190 Q 140 177 153 190" stroke="#6366f1" stroke-width="3" fill="none"/>
+          <circle cx="140" cy="198" r="3" fill="#6366f1"/>
+          
+          <rect x="650" y="160" width="50" height="30" rx="4" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+          <circle cx="663" cy="172" r="6" fill="#8b5cf6"/>
+          <line x1="650" y1="190" x2="650" y2="205" stroke="#8b5cf6" stroke-width="2"/>
+          <line x1="700" y1="190" x2="700" y2="205" stroke="#8b5cf6" stroke-width="2"/>
+          
+          <circle cx="140" cy="340" r="10" fill="none" stroke="#6366f1" stroke-width="2"/>
+          <rect x="148" y="337" width="22" height="6" rx="2" fill="#6366f1"/>
+        </g>
+        
+        <!-- Animated dots -->
+        <circle cx="100" cy="260" r="4" fill="#8b5cf6" opacity="0.8">
+          <animate attributeName="cy" values="260;250;260" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="700" cy="280" r="4" fill="#6366f1" opacity="0.8">
+          <animate attributeName="cy" values="280;270;280" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </section>
+
+  <section id="pgs" class="cards">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h2 style="font-size: 36px; margin: 0 0 12px; background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Available PGs & Hostels</h2>
+      <p style="color: var(--text-muted); font-size: 16px;">Find your perfect accommodation from our verified listings</p>
+    </div>
+    <div class="grid">
+      <div th:each="acc : ${accommodations}" class="card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <h3 th:text="${acc.name}">Sunshine PG</h3>
+          <span th:if="${acc.availableRooms > 0}" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">Available</span>
+          <span th:if="${acc.availableRooms == 0}" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">Full</span>
+        </div>
+        <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;"><span style="font-size: 16px;">📍</span><span th:text="${acc.address}">123 MG Road, Bangalore</span></p>
+        <div style="background: rgba(15, 23, 42, 0.4); padding: 16px; border-radius: 12px; margin-bottom: 16px;">
+          <p style="margin: 0 0 8px; display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted); font-size: 13px;">Monthly Rent</span>
+            <span style="font-weight: 700; color: var(--accent-light);">₹<span th:text="${acc.pricePerMonth}">5000</span></span>
+          </p>
+          <p style="margin: 0; display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted); font-size: 13px;">Available Rooms</span>
+            <span style="font-weight: 700; color: var(--accent-light);" th:text="${acc.availableRooms}">3</span>
+          </p>
+        </div>
+        <a th:href="@{/accommodation/{id}(id=${acc.id})}" style="display: block; text-align: center; padding: 12px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: 700; transition: all 0.3s ease;">View Details</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cards" style="padding-top: 20px;">
+    <div class="grid">
+      <div class="card">
+        <h3>🏠 Verified PGs</h3>
+        <p>Browse through hundreds of verified paying guest accommodations with real photos and honest reviews from residents.</p>
+      </div>
+      <div class="card">
+        <h3>🛏️ Hostels & Rooms</h3>
+        <p>Find budget-friendly hostels and private rooms perfect for students and working professionals.</p>
+      </div>
+      <div class="card">
+        <h3>📍 Prime Locations</h3>
+        <p>Discover accommodations near your college, office, or preferred locality with easy commute options.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Transparent Pricing</h3>
+        <p>No hidden charges. See complete breakdowns of rent, deposit, and amenities included in your stay.</p>
+      </div>
+      <div class="card">
+        <h3>🔒 Safe & Secure</h3>
+        <p>All properties are verified with proper documentation. Your safety and security are our top priority.</p>
+      </div>
+      <div class="card">
+        <h3>⚡ Quick Booking</h3>
+        <p>Book your PG in minutes with our streamlined process. Move in hassle-free and start your new journey.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-section" id="contact">
+    <div class="contact-container">
+      <h2>Get in Touch</h2>
+      <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 40px;">Have questions? We're here to help you find your perfect accommodation.</p>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email Us</h3>
+          <a href="mailto:renttogo@gmail.com">renttogo@gmail.com</a>
+          <p>We'll respond within 24 hours</p>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Customer Care</h3>
+          <a href="tel:+918800445566">+91 88004 45566</a>
+          <p>Mon-Sat, 9 AM - 7 PM IST</p>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h3>Live Chat</h3>
+          <a href="#" style="color: var(--accent-light);">Start Chat</a>
+          <p>Get instant help from our team</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 RentTOgo. Your trusted PG and hostel finder.</p>
+    <p style="margin-top: 8px; font-size: 12px;">Making your search for PGs and hostels simple, fast, and stress-free.</p>
+  </footer>
+</body>
+</html>
