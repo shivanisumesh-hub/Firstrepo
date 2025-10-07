@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title th:text="${accommodation.name} + ' — RentTOgo'">PG Details — RentTOgo</title>
+  <title>Sunshine PG – RentTOgo</title>
   <link rel="stylesheet" href="/css/styles.css" />
   <style>
     .detail-page {
@@ -17,6 +17,17 @@
       animation: fadeInUp 0.8s ease;
     }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .detail-header h1 {
       font-size: 42px;
       margin: 0 0 12px;
@@ -28,18 +39,39 @@
       letter-spacing: -1px;
     }
 
+    .detail-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
     .detail-badge {
       display: inline-block;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
       padding: 8px 16px;
       border-radius: 24px;
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
+    }
+
+    .badge-available {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
       box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
-      margin-bottom: 16px;
+    }
+
+    .badge-verified {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    }
+
+    .badge-premium {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
     }
 
     .detail-location {
@@ -209,6 +241,35 @@
       gap: 12px;
     }
 
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
     @media (max-width: 968px) {
       .detail-content {
         grid-template-columns: 1fr;
@@ -222,6 +283,15 @@
       .detail-header h1 {
         font-size: 32px;
       }
+
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
     }
   </style>
 </head>
@@ -229,29 +299,42 @@
   <header class="topbar">
     <div class="logo">RentTOgo</div>
     <nav>
-      <a href="/">Home</a>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/logout">Logout</a>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
     </nav>
   </header>
 
   <main class="detail-page">
     <div class="detail-header">
-      <div class="detail-badge" th:if="${accommodation.availableRooms > 0}">✓ Available</div>
-      <div class="detail-badge" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);" th:if="${accommodation.availableRooms == 0}">✗ Full</div>
-      <h1 th:text="${accommodation.name}">Sunshine PG</h1>
+      <div class="detail-badges">
+        <span class="detail-badge badge-available">✓ Available</span>
+        <span class="detail-badge badge-verified">✓ Verified</span>
+        <span class="detail-badge badge-premium">⭐ Premium</span>
+      </div>
+      <h1>Sunshine PG</h1>
       <div class="detail-location">
         <span style="font-size: 24px;">📍</span>
-        <span th:text="${accommodation.address}">123 MG Road, Bangalore, Karnataka 560001</span>
+        <span>Koramangala 4th Block, Bangalore, Karnataka 560034</span>
+        <span style="margin-left: 16px; color: var(--accent-light);">📏 1.2 km away</span>
       </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+      <div class="gallery-item">🏠</div>
+      <div class="gallery-item">🛏️</div>
+      <div class="gallery-item">🍽️</div>
+      <div class="gallery-item">🚿</div>
+      <div class="gallery-item">🏋️</div>
     </div>
 
     <div class="detail-content">
       <div class="detail-main">
         <div class="detail-section">
           <h2>📝 Description</h2>
-          <p style="color: var(--text-muted); line-height: 1.8;" th:text="${accommodation.description}">
-            Welcome to Sunshine PG, a comfortable and well-maintained paying guest accommodation located in the heart of the city. Our facility offers modern amenities, spacious rooms, and a friendly atmosphere perfect for students and working professionals.
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            Welcome to Sunshine PG, a comfortable and well-maintained paying guest accommodation located in the heart of Koramangala. Our facility offers modern amenities, spacious rooms, and a friendly atmosphere perfect for students and working professionals. The property is strategically located with easy access to major tech parks, educational institutions, shopping centers, and public transport. We provide a safe, clean, and homely environment with 24/7 security and housekeeping services.
           </p>
         </div>
 
@@ -260,11 +343,11 @@
           <div class="amenities-grid">
             <div class="amenity-item">
               <span style="font-size: 20px;">📶</span>
-              <span>Free WiFi</span>
+              <span>High-Speed WiFi</span>
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">🍽️</span>
-              <span>Food Included</span>
+              <span>3 Meals Included</span>
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">🧺</span>
@@ -276,7 +359,7 @@
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">🅿️</span>
-              <span>Parking</span>
+              <span>Two-Wheeler Parking</span>
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">🔒</span>
@@ -284,11 +367,27 @@
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">🧹</span>
-              <span>Housekeeping</span>
+              <span>Daily Housekeeping</span>
             </div>
             <div class="amenity-item">
               <span style="font-size: 20px;">💧</span>
-              <span>Water Supply</span>
+              <span>24/7 Water Supply</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">⚡</span>
+              <span>Power Backup</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">📺</span>
+              <span>Common TV Room</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🏋️</span>
+              <span>Gym Access</span>
+            </div>
+            <div class="amenity-item">
+              <span style="font-size: 20px;">🔥</span>
+              <span>RO Water Purifier</span>
             </div>
           </div>
         </div>
@@ -298,11 +397,11 @@
           <ul class="rules-list">
             <li>
               <span style="font-size: 20px;">⏰</span>
-              <span>Entry time: 10:00 PM</span>
+              <span>Entry time: Before 10:00 PM (Exceptions with prior notice)</span>
             </li>
             <li>
               <span style="font-size: 20px;">🚭</span>
-              <span>No smoking inside the premises</span>
+              <span>No smoking or alcohol inside the premises</span>
             </li>
             <li>
               <span style="font-size: 20px;">🔇</span>
@@ -310,50 +409,119 @@
             </li>
             <li>
               <span style="font-size: 20px;">👥</span>
-              <span>Visitors allowed till 8:00 PM</span>
+              <span>Visitors allowed till 8:00 PM (Only in common areas)</span>
+            </li>
+            <li>
+              <span style="font-size: 20px;">🍴</span>
+              <span>Food timings: Breakfast 7-9 AM, Lunch 12-2 PM, Dinner 7-9 PM</span>
+            </li>
+            <li>
+              <span style="font-size: 20px;">📅</span>
+              <span>Minimum stay: 3 months</span>
             </li>
           </ul>
+        </div>
+
+        <div class="detail-section">
+          <h2>📍 Nearby Locations</h2>
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(15, 23, 42, 0.4); border-radius: 8px;">
+              <span style="color: var(--text-muted);">🏢 Electronic City Metro</span>
+              <span style="color: var(--accent-light); font-weight: 600;">800m</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(15, 23, 42, 0.4); border-radius: 8px;">
+              <span style="color: var(--text-muted);">🛒 Forum Mall</span>
+              <span style="color: var(--accent-light); font-weight: 600;">1.5km</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(15, 23, 42, 0.4); border-radius: 8px;">
+              <span style="color: var(--text-muted);">🏥 Apollo Hospital</span>
+              <span style="color: var(--accent-light); font-weight: 600;">2km</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(15, 23, 42, 0.4); border-radius: 8px;">
+              <span style="color: var(--text-muted);">🏢 Wipro Corporate Office</span>
+              <span style="color: var(--accent-light); font-weight: 600;">3km</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="detail-sidebar">
         <div class="price-card">
           <h3>Monthly Rent</h3>
-          <div class="price-amount">₹<span th:text="${accommodation.pricePerMonth}">5,000</span></div>
+          <div class="price-amount">₹8,000</div>
           <div class="price-period">per month</div>
 
           <div style="margin: 24px 0;">
             <div class="detail-info-item">
               <span class="detail-info-label">Available Rooms</span>
-              <span class="detail-info-value" th:text="${accommodation.availableRooms}">3</span>
+              <span class="detail-info-value" style="color: #10b981;">5</span>
             </div>
             <div class="detail-info-item">
               <span class="detail-info-label">Room Type</span>
-              <span class="detail-info-value" th:text="${accommodation.roomType}">Double Sharing</span>
+              <span class="detail-info-value">Double Sharing</span>
             </div>
             <div class="detail-info-item">
               <span class="detail-info-label">Gender</span>
-              <span class="detail-info-value" th:text="${accommodation.gender}">Male</span>
+              <span class="detail-info-value">Male</span>
             </div>
             <div class="detail-info-item">
               <span class="detail-info-label">Security Deposit</span>
-              <span class="detail-info-value">₹<span th:text="${accommodation.securityDeposit}">5,000</span></span>
+              <span class="detail-info-value">₹5,000</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">Notice Period</span>
+              <span class="detail-info-value">1 Month</span>
+            </div>
+            <div class="detail-info-item">
+              <span class="detail-info-label">Food Type</span>
+              <span class="detail-info-value">Veg & Non-Veg</span>
             </div>
           </div>
 
-          <a href="#" class="contact-owner-btn">Contact Owner</a>
+          <a href="payment.html" class="contact-owner-btn">Book Now - Pay ₹16,520</a>
           <a href="#" class="contact-owner-btn" style="background: rgba(30, 41, 59, 0.7); box-shadow: none; margin-top: 12px;">Schedule Visit</a>
+          <a href="tel:+919876543210" class="contact-owner-btn" style="background: rgba(16, 185, 129, 0.2); color: #10b981; box-shadow: none; margin-top: 12px;">📞 Call Owner</a>
         </div>
 
         <div class="detail-section" style="margin-top: 24px;">
           <h2>👤 Owner Details</h2>
           <div style="text-align: center; padding: 20px 0;">
             <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700;">
-              <span th:text="${#strings.substring(accommodation.ownerName, 0, 1)}">R</span>
+              R
             </div>
-            <h3 style="margin: 0 0 8px; color: var(--text);" th:text="${accommodation.ownerName}">Rajesh Kumar</h3>
-            <p style="color: var(--text-muted); margin: 0 0 16px; font-size: 14px;">Property Owner</p>
-            <a href="tel:+919876543210" style="color: var(--accent-light); text-decoration: none; font-weight: 600;">📞 +91 98765 43210</a>
+            <h3 style="margin: 0 0 8px; color: var(--text);">Rajesh Kumar</h3>
+            <p style="color: var(--text-muted); margin: 0 0 4px; font-size: 14px;">Property Owner</p>
+            <p style="color: var(--text-muted); margin: 0 0 16px; font-size: 13px;">⭐ 4.8 Rating (156 reviews)</p>
+            <a href="tel:+919876543210" style="color: var(--accent-light); text-decoration: none; font-weight: 600; font-size: 16px;">📞 +91 98765 43210</a>
+            <p style="color: var(--text-muted); margin: 12px 0 0; font-size: 12px;">Verified Owner • 5 years on platform</p>
+          </div>
+        </div>
+
+        <div class="detail-section" style="margin-top: 24px;">
+          <h2>⭐ Reviews</h2>
+          <div style="text-align: center; margin-bottom: 16px;">
+            <div style="font-size: 48px; font-weight: 800; color: var(--accent-light);">4.8</div>
+            <div style="color: var(--text-muted); font-size: 14px;">Based on 156 reviews</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: rgba(15, 23, 42, 0.4); padding: 16px; border-radius: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 600;">Amit Sharma</span>
+                <span style="color: #f59e0b;">⭐ 5.0</span>
+              </div>
+              <p style="color: var(--text-muted); font-size: 13px; margin: 0; line-height: 1.5;">
+                Great place to stay! Clean rooms, good food, and excellent management. Highly recommended!
+              </p>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.4); padding: 16px; border-radius: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 600;">Priya Reddy</span>
+                <span style="color: #f59e0b;">⭐ 4.5</span>
+              </div>
+              <p style="color: var(--text-muted); font-size: 13px; margin: 0; line-height: 1.5;">
+                Perfect location near my office. The owner is very cooperative and helpful.
+              </p>
+            </div>
           </div>
         </div>
       </div>

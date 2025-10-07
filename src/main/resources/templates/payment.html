@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment – RentTOgo</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .payment-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .payment-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .payment-header h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 32px;
+    }
+
+    .payment-form-section {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-light);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .payment-method {
+      background: rgba(15, 23, 42, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-method:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .payment-method.active {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .payment-method-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .payment-method-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .order-summary {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 32px;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .property-info {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .property-info h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .property-info p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin: 4px 0;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .total-row {
+      background: rgba(99, 102, 241, 0.1);
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 16px;
+    }
+
+    .total-row .summary-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .total-row .summary-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-light);
+    }
+
+    .pay-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+      margin-top: 24px;
+    }
+
+    .pay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 16px;
+    }
+
+    .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .success-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 500px;
+      animation: modalPop 0.4s ease;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin: 0 auto 24px;
+    }
+
+    .modal-content h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .modal-content p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .booking-id {
+      background: rgba(99, 102, 241, 0.2);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 968px) {
+      .payment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: relative;
+        top: 0;
+      }
+
+      .payment-methods {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">RentTOgo</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main class="payment-container">
+    <div class="payment-header">
+      <h1>Complete Your Booking</h1>
+      <p style="color: var(--text-muted); font-size: 16px;">Secure your accommodation with our safe payment process</p>
+    </div>
+
+    <div class="payment-grid">
+      <!-- Payment Form -->
+      <div>
+        <!-- Payment Method Selection -->
+        <div class="payment-form-section">
+          <h3 class="section-title">💳 Select Payment Method</h3>
+          <div class="payment-methods">
+            <div class="payment-method active" onclick="selectPaymentMethod(this, 'card')">
+              <div class="payment-method-icon">💳</div>
+              <div class="payment-method-label">Card</div>
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod(this, 'upi')">
+              <div class="payment-method-icon">📱</div>
+              <div class="payment-method-label">UPI</div>
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod(this, 'netbanking')">
+              <div class="payment-method-icon">🏦</div>
+              <div class="payment-method-label">Net Banking</div>
+            </div>
+          </div>
+
+          <div id="cardPayment">
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="text" placeholder="MM/YY" maxlength="5" />
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" placeholder="123" maxlength="3" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Cardholder Name</label>
+              <input type="text" placeholder="John Doe" />
+            </div>
+          </div>
+
+          <div id="upiPayment" style="display: none;">
+            <div class="form-group">
+              <label>UPI ID</label>
+              <input type="text" placeholder="yourname@upi" />
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+              💡 You will receive a payment request on your UPI app
+            </p>
+          </div>
+
+          <div id="netbankingPayment" style="display: none;">
+            <div class="form-group">
+              <label>Select Bank</label>
+              <select>
+                <option>State Bank of India</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Kotak Mahindra Bank</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing Information -->
+        <div class="payment-form-section" style="margin-top: 24px;">
+          <h3 class="section-title">📋 Billing Information</h3>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" value="Demo User" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com" value="demo@renttogo.com" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+91 98765 43210" />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" placeholder="Street Address" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" placeholder="Bangalore" />
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" placeholder="560001" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h3 class="section-title">📄 Booking Summary</h3>
+        
+        <div class="property-info">
+          <h3>Sunshine PG</h3>
+          <p>📍 Koramangala 4th Block, Bangalore</p>
+          <p>🛏️ Double Sharing Room</p>
+          <p>📅 Move-in: Jan 15, 2025</p>
+        </div>
+
+        <div>
+          <div class="summary-item">
+            <span class="summary-label">Monthly Rent</span>
+            <span class="summary-value">₹8,000</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Security Deposit</span>
+            <span class="summary-value">₹5,000</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Maintenance (1 month)</span>
+            <span class="summary-value">₹500</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Service Fee</span>
+            <span class="summary-value">₹500</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">GST (18%)</span>
+            <span class="summary-value">₹2,520</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <div class="summary-item">
+            <span class="summary-label">Total Amount</span>
+            <span class="summary-value">₹16,520</span>
+          </div>
+        </div>
+
+        <button class="pay-btn" onclick="processPayment()">
+          🔒 Pay ₹16,520
+        </button>
+
+        <div class="secure-badge">
+          <span>🔒</span>
+          <span>Secured by 256-bit SSL encryption</span>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 11px; margin-top: 16px; text-align: center; line-height: 1.5;">
+          By completing this payment, you agree to our Terms & Conditions and Cancellation Policy
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="success-modal" id="successModal">
+    <div class="modal-content">
+      <div class="success-icon">✓</div>
+      <h2>Payment Successful!</h2>
+      <p>Your booking has been confirmed. You will receive a confirmation email shortly.</p>
+      <div class="booking-id">
+        Booking ID: RT-2025-001234
+      </div>
+      <a href="dashboard.html" style="display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: 700;">
+        Go to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 RentTOgo. Your trusted PG and hostel finder.</p>
+  </footer>
+
+  <script>
+    let selectedPaymentMethod = 'card';
+
+    function selectPaymentMethod(element, method) {
+      // Remove active class from all methods
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+      element.classList.add('active');
+      selectedPaymentMethod = method;
+
+      // Hide all payment forms
+      document.getElementById('cardPayment').style.display = 'none';
+      document.getElementById('upiPayment').style.display = 'none';
+      document.getElementById('netbankingPayment').style.display = 'none';
+
+      // Show selected payment form
+      if (method === 'card') {
+        document.getElementById('cardPayment').style.display = 'block';
+      } else if (method === 'upi') {
+        document.getElementById('upiPayment').style.display = 'block';
+      } else if (method === 'netbanking') {
+        document.getElementById('netbankingPayment').style.display = 'block';
+      }
+    }
+
+    function processPayment() {
+      // Simulate payment processing
+      const btn = document.querySelector('.pay-btn');
+      btn.textContent = '⏳ Processing...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        document.getElementById('successModal').classList.add('active');
+      }, 2000);
+    }
+
+    // Format card number
+    document.getElementById('cardNumber')?.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s/g, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+  </script>
+</body>
+</html>
