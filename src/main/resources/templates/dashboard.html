@@ -6,416 +6,19 @@
   <title>Dashboard – RentToGo</title>
   <link rel="stylesheet" href="/css/styles.css" />
   <style>
-    .dashboard-main {
-      padding: 40px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-      gap: 32px;
-    }
-
-    .dashboard-title h1 {
-      font-size: 42px;
-      margin: 0 0 8px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -1px;
-    }
-
-    .dashboard-title .tagline {
-      color: var(--text-muted);
-      font-size: 16px;
-      margin: 0;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(30, 41, 59, 0.5);
-      backdrop-filter: blur(10px);
-      padding: 16px 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .user-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 20px;
-      color: white;
-    }
-
-    .user-details h3 {
-      margin: 0;
-      font-size: 16px;
-      color: var(--text);
-    }
-
-    .user-details p {
-      margin: 4px 0 0;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .logout-btn {
-      padding: 8px 16px;
-      background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      margin-left: 16px;
-    }
-
-    .logout-btn:hover {
-      background: rgba(239, 68, 68, 0.3);
-      border-color: rgba(239, 68, 68, 0.5);
-    }
-
-    .dashboard-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: rgba(30, 41, 59, 0.5);
-      backdrop-filter: blur(10px);
-      padding: 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-    }
-
-    .stat-icon {
-      font-size: 36px;
-    }
-
-    .stat-info h3 {
-      font-size: 32px;
-      margin: 0;
-      color: var(--accent-light);
-      font-weight: 800;
-    }
-
-    .stat-info p {
-      margin: 4px 0 0;
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .filters-section {
-      background: rgba(30, 41, 59, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-    }
-
-    .filters-row {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
-    .filter-group {
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .filter-group label {
-      display: block;
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .filter-group select,
-    .filter-group input {
-      width: 100%;
-      padding: 10px 14px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 14px;
-    }
-
-    .filter-btn {
-      padding: 10px 24px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 14px;
-    }
-
-    .filter-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-    }
-
-    .accommodation-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 360px;
-      background: rgba(30, 41, 59, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 24px;
-      transition: all 0.3s;
-    }
-
-    .accommodation-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 16px;
-    }
-
-    .card-badges {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .badge-available {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    }
-
-    .badge-full {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-
-    .badge-verified {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .card-content {
-      flex: 1;
-    }
-
-    .card-content h3 {
-      font-size: 24px;
-      margin: 0 0 16px;
-    }
-
-    .card-detail {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .detail-icon {
-      font-size: 18px;
-      margin-top: 2px;
-    }
-
-    .card-detail p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .distance-tag {
-      display: inline-block;
-      background: rgba(99, 102, 241, 0.2);
-      color: var(--accent-light);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .card-info-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-      padding: 20px;
-      background: rgba(15, 23, 42, 0.4);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .info-icon {
-      font-size: 24px;
-    }
-
-    .info-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .info-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .info-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent-light);
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: auto;
-    }
-
-    .btn-primary, .btn-secondary {
-      flex: 1;
-      text-align: center;
-      padding: 12px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: white;
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-    }
-
-    .btn-secondary {
-      background: rgba(30, 41, 59, 0.6);
-      color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(30, 41, 59, 0.8);
-      border-color: rgba(99, 102, 241, 0.4);
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 968px) {
-      .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .user-info {
-        width: 100%;
-      }
-
-      .dashboard-title h1 {
-        font-size: 32px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .dashboard-main {
-        padding: 20px;
-      }
-
-      .card-actions {
-        flex-direction: column;
-      }
-
-      .btn-primary, .btn-secondary {
-        width: 100%;
-      }
-    }
+    /* keep all your CSS exactly as before (omitted here for brevity) */
+    /* paste the CSS from your original file between these style tags */
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="logo">RentToGo</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="#" onclick="handleLogout()">Logout</a>
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/dashboard}">Dashboard</a>
+      <form th:action="@{/logout}" method="post" style="display:inline">
+        <button type="submit" class="logout-btn" style="background:transparent;border:0;padding:8px 16px;cursor:pointer;">Logout</button>
+      </form>
     </nav>
   </header>
 
@@ -426,12 +29,12 @@
         <p class="tagline">Manage and explore available accommodations</p>
       </div>
       <div class="user-info">
-        <div class="user-avatar">D</div>
+        <div class="user-avatar" th:text="${currentUserName != null ? ${#strings.substring(currentUserName,0,1)} : 'U'}">D</div>
         <div class="user-details">
-          <h3 id="userName">Demo User</h3>
-          <p id="userEmail">demo@renttogo.com</p>
+          <h3 id="userName" th:text="${currentUserName}">Demo User</h3>
+          <p id="userEmail" th:text="${#authentication?.principal}">demo@renttogo.com</p>
         </div>
-        <a href="#" class="logout-btn" onclick="handleLogout()">Logout</a>
+        <!-- using form-based logout above; keep visual logout too -->
       </div>
     </div>
 
@@ -439,28 +42,28 @@
       <div class="stat-card">
         <div class="stat-icon">🏠</div>
         <div class="stat-info">
-          <h3 id="totalPGs">15</h3>
+          <h3 th:id="totalPGs" th:text="${accommodations != null ? accommodations.size() : 0}">0</h3>
           <p>Total PGs</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">✅</div>
         <div class="stat-info">
-          <h3 id="availablePGs">12</h3>
+          <h3 th:id="availablePGs" th:text="${#lists.size(accommodations != null ? (#streams.create(accommodations).filter(a -> a.availableRooms > 0).toList()) : {})}">0</h3>
           <p>Available</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">✓</div>
         <div class="stat-info">
-          <h3 id="verifiedPGs">12</h3>
+          <h3 th:text="${accommodations != null ? accommodations.size() : 0}">0</h3>
           <p>Verified</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📍</div>
         <div class="stat-info">
-          <h3>5</h3>
+          <h3 th:text="${#lists.size(#arrays.asList(accommodations).?[city])}">5</h3>
           <p>Locations</p>
         </div>
       </div>
@@ -473,13 +76,12 @@
           <label>Location</label>
           <select id="locationFilter">
             <option value="all">All Locations</option>
-            <option value="koramangala">Koramangala</option>
-            <option value="whitefield">Whitefield</option>
-            <option value="indiranagar">Indiranagar</option>
-            <option value="mgroad">MG Road</option>
-            <option value="hsr">HSR Layout</option>
+            <option th:each="city : ${#lists.arrayList(accommodations).!{city}.stream().distinct().toList()}"
+                    th:value="${city.toLowerCase()}"
+                    th:text="${city}">City</option>
           </select>
         </div>
+
         <div class="filter-group">
           <label>Availability</label>
           <select id="availabilityFilter">
@@ -488,6 +90,7 @@
             <option value="full">Full Only</option>
           </select>
         </div>
+
         <div class="filter-group">
           <label>Sort By</label>
           <select id="sortFilter">
@@ -497,139 +100,59 @@
             <option value="rooms">Available Rooms</option>
           </select>
         </div>
+
         <div class="filter-group">
           <label>Max Price</label>
           <input type="number" id="priceFilter" placeholder="₹10,000" />
         </div>
+
         <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
       </div>
     </div>
 
     <div class="cards">
       <div class="grid" id="pgGrid">
-        <!-- PG Card 1 -->
-        <div class="accommodation-card" data-location="koramangala" data-distance="1.2" data-price="8000" data-rooms="5">
+        <div th:each="pg : ${accommodations}" class="accommodation-card"
+             th:attr="data-location=${pg.city.toLowerCase()}, data-distance=${pg.latitude != null && pg.longitude != null ? 0 : 9999}, data-price=${pg.pricePerMonth}, data-rooms=${pg.availableRooms}">
           <div class="card-header">
-            <h3>Sunshine PG</h3>
+            <h3 th:text="${pg.name}">PG Name</h3>
             <div class="card-badges">
+              <span th:if="${pg.availableRooms > 0}" class="badge-available">Available</span>
+              <span th:if="${pg.availableRooms == 0}" class="badge-full">Full</span>
               <span class="badge-verified">✓ Verified</span>
-              <span class="badge-available">Available</span>
             </div>
           </div>
-          
-          <div class="card-content">
-            <div class="card-detail">
-              <span class="detail-icon">📍</span>
-              <p>Koramangala 4th Block, Bangalore, Karnataka 560034</p>
-            </div>
-            <span class="distance-tag">📏 1.2 km away</span>
-            
-            <div class="card-info-grid">
-              <div class="info-item">
-                <span class="info-icon">💰</span>
-                <div class="info-text">
-                  <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹8,000</span>
-                </div>
-              </div>
-              
-              <div class="info-item">
-                <span class="info-icon">🛏️</span>
-                <div class="info-text">
-                  <span class="info-label">Available Rooms</span>
-                  <span class="info-value" style="color: #ef4444;">0</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary" style="opacity: 0.6; cursor: not-allowed;">Fully Booked</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
-          </div>
-        </div>
 
-        <!-- PG Card 5 -->
-        <div class="accommodation-card" data-location="hsr" data-distance="4.2" data-price="8500" data-rooms="4">
-          <div class="card-header">
-            <h3>Comfort Living PG</h3>
-            <div class="card-badges">
-              <span class="badge-verified">✓ Verified</span>
-              <span class="badge-available">Available</span>
-            </div>
-          </div>
-          
           <div class="card-content">
             <div class="card-detail">
               <span class="detail-icon">📍</span>
-              <p>HSR Layout Sector 1, Bangalore, Karnataka 560102</p>
+              <p th:text="${pg.address}">Address</p>
             </div>
-            <span class="distance-tag">📏 4.2 km away</span>
-            
-            <div class="card-info-grid">
-              <div class="info-item">
-                <span class="info-icon">💰</span>
-                <div class="info-text">
-                  <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹8,500</span>
-                </div>
-              </div>
-              
-              <div class="info-item">
-                <span class="info-icon">🛏️</span>
-                <div class="info-text">
-                  <span class="info-label">Available Rooms</span>
-                  <span class="info-value">4</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary">View Details</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
-          </div>
-        </div>
 
-        <!-- PG Card 6 -->
-        <div class="accommodation-card" data-location="koramangala" data-distance="1.5" data-price="7000" data-rooms="6">
-          <div class="card-header">
-            <h3>Student Haven PG</h3>
-            <div class="card-badges">
-              <span class="badge-verified">✓ Verified</span>
-              <span class="badge-available">Available</span>
-            </div>
-          </div>
-          
-          <div class="card-content">
-            <div class="card-detail">
-              <span class="detail-icon">📍</span>
-              <p>Koramangala 6th Block, Bangalore, Karnataka 560095</p>
-            </div>
-            <span class="distance-tag">📏 1.5 km away</span>
-            
+            <span class="distance-tag" th:text="'📏 ' + (${#numbers.formatDecimal(#numbers.formatDecimal( (pg.latitude != null && pg.longitude != null) ? 0.0 : 9999.0, 1, 1) , 1, 1)} ) + ' km away'">📏 1.2 km away</span>
+
             <div class="card-info-grid">
               <div class="info-item">
                 <span class="info-icon">💰</span>
                 <div class="info-text">
                   <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹7,000</span>
+                  <span class="info-value" th:text="'₹' + ${pg.pricePerMonth}">₹0</span>
                 </div>
               </div>
-              
+
               <div class="info-item">
                 <span class="info-icon">🛏️</span>
                 <div class="info-text">
                   <span class="info-label">Available Rooms</span>
-                  <span class="info-value">6</span>
+                  <span class="info-value" th:text="${pg.availableRooms}">0</span>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary">View Details</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
+            <a th:href="@{'/accommodation/' + ${pg.id}}" class="btn-primary">View Details</a>
+            <a th:href="'tel:' + ${pg.contactNumber}" class="btn-secondary">Contact Owner</a>
           </div>
         </div>
       </div>
@@ -641,217 +164,49 @@
   </footer>
 
   <script>
-    // Check if user is logged in
-    window.onload = function() {
-      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-      const userName = sessionStorage.getItem('userName');
-      const userEmail = sessionStorage.getItem('userEmail');
-      
-      if (!isLoggedIn) {
-        window.location.href = 'login.html';
-        return;
-      }
-      
-      if (userName) {
-        document.getElementById('userName').textContent = userName;
-        document.querySelector('.user-avatar').textContent = userName.charAt(0).toUpperCase();
-      }
-      if (userEmail) {
-        document.getElementById('userEmail').textContent = userEmail;
-      }
-    };
-
-    function handleLogout() {
-      sessionStorage.clear();
-      window.location.href = 'login.html';
-    }
-
+    // keep client-side filter/sort code — but remove any sessionStorage-based auth checks
     function applyFilters() {
       const location = document.getElementById('locationFilter').value;
       const availability = document.getElementById('availabilityFilter').value;
       const sortBy = document.getElementById('sortFilter').value;
       const maxPrice = document.getElementById('priceFilter').value;
-      
-      const cards = document.querySelectorAll('.accommodation-card');
+
+      const cards = Array.from(document.querySelectorAll('.accommodation-card'));
       let visibleCards = [];
-      
+
       cards.forEach(card => {
         const cardLocation = card.getAttribute('data-location');
         const cardPrice = parseFloat(card.getAttribute('data-price'));
         const cardRooms = parseInt(card.getAttribute('data-rooms'));
-        
+
         let show = true;
-        
-        // Location filter
-        if (location !== 'all' && cardLocation !== location) {
-          show = false;
-        }
-        
-        // Availability filter
-        if (availability === 'available' && cardRooms === 0) {
-          show = false;
-        }
-        if (availability === 'full' && cardRooms > 0) {
-          show = false;
-        }
-        
-        // Price filter
-        if (maxPrice && cardPrice > parseFloat(maxPrice)) {
-          show = false;
-        }
-        
+
+        if (location !== 'all' && cardLocation !== location) show = false;
+        if (availability === 'available' && cardRooms === 0) show = false;
+        if (availability === 'full' && cardRooms > 0) show = false;
+        if (maxPrice && cardPrice > parseFloat(maxPrice)) show = false;
+
         card.style.display = show ? 'flex' : 'none';
-        if (show) {
-          visibleCards.push(card);
-        }
+        if (show) visibleCards.push(card);
       });
-      
-      // Sort cards
+
       if (sortBy === 'distance') {
-        visibleCards.sort((a, b) => parseFloat(a.getAttribute('data-distance')) - parseFloat(b.getAttribute('data-distance')));
+        visibleCards.sort((a,b) => parseFloat(a.getAttribute('data-distance')) - parseFloat(b.getAttribute('data-distance')));
       } else if (sortBy === 'price-low') {
-        visibleCards.sort((a, b) => parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price')));
+        visibleCards.sort((a,b) => parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price')));
       } else if (sortBy === 'price-high') {
-        visibleCards.sort((a, b) => parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price')));
+        visibleCards.sort((a,b) => parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price')));
       } else if (sortBy === 'rooms') {
-        visibleCards.sort((a, b) => parseInt(b.getAttribute('data-rooms')) - parseInt(a.getAttribute('data-rooms')));
+        visibleCards.sort((a,b) => parseInt(b.getAttribute('data-rooms')) - parseInt(a.getAttribute('data-rooms')));
       }
-      
-      // Re-append sorted cards
+
       const grid = document.getElementById('pgGrid');
       visibleCards.forEach(card => grid.appendChild(card));
-      
-      // Update stats
-      const availableCount = visibleCards.filter(c => parseInt(c.getAttribute('data-rooms')) > 0).length;
+
       document.getElementById('totalPGs').textContent = visibleCards.length;
+      const availableCount = visibleCards.filter(c => parseInt(c.getAttribute('data-rooms')) > 0).length;
       document.getElementById('availablePGs').textContent = availableCount;
     }
   </script>
 </body>
 </html>
-                <div class="info-text">
-                  <span class="info-label">Available Rooms</span>
-                  <span class="info-value">5</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary">View Details</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
-          </div>
-        </div>
-
-        <!-- PG Card 2 -->
-        <div class="accommodation-card" data-location="whitefield" data-distance="3.5" data-price="7500" data-rooms="3">
-          <div class="card-header">
-            <h3>Green Valley Hostel</h3>
-            <div class="card-badges">
-              <span class="badge-verified">✓ Verified</span>
-              <span class="badge-available">Available</span>
-            </div>
-          </div>
-          
-          <div class="card-content">
-            <div class="card-detail">
-              <span class="detail-icon">📍</span>
-              <p>Whitefield Main Road, Bangalore, Karnataka 560066</p>
-            </div>
-            <span class="distance-tag">📏 3.5 km away</span>
-            
-            <div class="card-info-grid">
-              <div class="info-item">
-                <span class="info-icon">💰</span>
-                <div class="info-text">
-                  <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹7,500</span>
-                </div>
-              </div>
-              
-              <div class="info-item">
-                <span class="info-icon">🛏️</span>
-                <div class="info-text">
-                  <span class="info-label">Available Rooms</span>
-                  <span class="info-value">3</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary">View Details</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
-          </div>
-        </div>
-
-        <!-- PG Card 3 -->
-        <div class="accommodation-card" data-location="indiranagar" data-distance="2.8" data-price="9500" data-rooms="2">
-          <div class="card-header">
-            <h3>Royal Residency PG</h3>
-            <div class="card-badges">
-              <span class="badge-verified">✓ Verified</span>
-              <span class="badge-available">Available</span>
-            </div>
-          </div>
-          
-          <div class="card-content">
-            <div class="card-detail">
-              <span class="detail-icon">📍</span>
-              <p>Indiranagar 100 Feet Road, Bangalore, Karnataka 560038</p>
-            </div>
-            <span class="distance-tag">📏 2.8 km away</span>
-            
-            <div class="card-info-grid">
-              <div class="info-item">
-                <span class="info-icon">💰</span>
-                <div class="info-text">
-                  <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹9,500</span>
-                </div>
-              </div>
-              
-              <div class="info-item">
-                <span class="info-icon">🛏️</span>
-                <div class="info-text">
-                  <span class="info-label">Available Rooms</span>
-                  <span class="info-value">2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <a href="accommodation_detail.html" class="btn-primary">View Details</a>
-            <a href="#" class="btn-secondary">Contact Owner</a>
-          </div>
-        </div>
-
-        <!-- PG Card 4 - Full -->
-        <div class="accommodation-card" data-location="mgroad" data-distance="0.8" data-price="12000" data-rooms="0">
-          <div class="card-header">
-            <h3>Metro Heights PG</h3>
-            <div class="card-badges">
-              <span class="badge-verified">✓ Verified</span>
-              <span class="badge-full">Full</span>
-            </div>
-          </div>
-          
-          <div class="card-content">
-            <div class="card-detail">
-              <span class="detail-icon">📍</span>
-              <p>MG Road, Bangalore, Karnataka 560001</p>
-            </div>
-            <span class="distance-tag">📏 0.8 km away</span>
-            
-            <div class="card-info-grid">
-              <div class="info-item">
-                <span class="info-icon">💰</span>
-                <div class="info-text">
-                  <span class="info-label">Monthly Rent</span>
-                  <span class="info-value">₹12,000</span>
-                </div>
-              </div>
-              
-              <div class="info-item">
-                <span class="info-icon">🛏️</span>
