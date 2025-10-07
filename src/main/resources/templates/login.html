@@ -6,206 +6,71 @@
   <title>Login – RentTOgo</title>
   <link rel="stylesheet" href="/css/styles.css" />
   <style>
-    .centered {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 160px);
-      padding: 40px 20px;
-    }
-
-    .login-card {
-      background: rgba(30, 41, 59, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 48px;
-      width: 100%;
-      max-width: 440px;
-      animation: fadeInUp 0.6s ease;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .login-card h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-      text-align: center;
-      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 14px 16px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 15px;
-      transition: all 0.3s;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-    }
-
-    button[type="submit"] {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-      margin-top: 24px;
-    }
-
-    button[type="submit"]:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
-    }
-
-    button[type="submit"]:active {
-      transform: translateY(0);
-    }
-
-    button[type="submit"]:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .success-message {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #10b981;
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 14px;
-      display: none;
-      animation: slideDown 0.3s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin-top: 16px;
-      text-align: center;
-      font-size: 14px;
-      display: none;
-      animation: slideDown 0.3s ease;
-    }
-
-    .loading-spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    /* (Keep the exact styles you already had) */
+    .centered { display:flex; align-items:center; justify-content:center; min-height:calc(100vh - 160px); padding:40px 20px; }
+    .login-card { background: rgba(30,41,59,0.5); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:48px; width:100%; max-width:440px; animation: fadeInUp 0.6s ease;}
+    @keyframes fadeInUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+    .login-card h2 { font-size:32px; margin-bottom:12px; text-align:center; background:linear-gradient(135deg,#f1f5f9 0%,#94a3b8 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; color:var(--text-muted); font-size:14px; margin-bottom:8px; font-weight:600; }
+    .form-group input, .form-group select { width:100%; padding:14px 16px; background: rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:var(--text); font-size:15px; transition:all 0.3s; }
+    .form-group input:focus, .form-group select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+    button[type="submit"] { width:100%; padding:16px; background: linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%); color:white; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.3s; box-shadow:0 10px 25px rgba(99,102,241,0.3); margin-top:24px; }
+    .error { background: rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; padding:12px 16px; border-radius:10px; margin-top:16px; text-align:center; font-size:14px; animation: slideDown 0.3s ease; }
+    .success { background: rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); color:#10b981; padding:12px 16px; border-radius:10px; margin-bottom:20px; text-align:center; font-size:14px; animation: slideDown 0.3s ease; }
+    @keyframes slideDown { from{opacity:0; transform:translateY(-10px);} to{opacity:1; transform:translateY(0);} }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="logo">RentTOgo</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="register.html">Register</a>
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/register}">Register</a>
     </nav>
   </header>
 
   <main class="centered">
     <div class="login-card">
       <h2>Welcome Back</h2>
-      <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">Login to find your perfect PG</p>
-      
-      <div id="successMessage" class="success-message">
-        ✓ Login successful! Redirecting to dashboard...
-      </div>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom:24px;">Login to find your perfect PG</p>
 
-      <div id="errorMessage" class="error">
-        ✗ Invalid credentials. Please try again.
-      </div>
+      <!-- server-side success / error messages -->
+      <div th:if="${success}" class="success" th:text="${success}">✓ Login successful! Redirecting...</div>
+      <div th:if="${error}" class="error" th:text="${error}">✗ Invalid credentials</div>
 
-      <form id="loginForm" onsubmit="handleLogin(event)">
+      <!-- Thymeleaf form posting to /doLogin -->
+      <form th:action="@{/doLogin}" method="post">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          <label for="role">Role</label>
+          <select id="role" name="role" required>
+            <option value="student">Student</option>
+            <option value="owner">Owner</option>
+          </select>
         </div>
-        
+
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+          <label for="identifier">Admission No (Student) / Phone (Owner)</label>
+          <input id="identifier" name="identifier" type="text" placeholder="S001 or +91-XXXXXXXXXX" required />
         </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
-          <label style="color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 6px; cursor: pointer;">
-            <input type="checkbox" name="remember" style="width: auto; margin: 0; cursor: pointer;" />
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Enter your password" required />
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+          <label style="color:var(--text-muted); font-size:14px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+            <input type="checkbox" name="remember" style="width:auto; margin:0; cursor:pointer;" />
             Remember me
           </label>
-          <a href="#" style="color: var(--accent-light); font-size: 14px; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='#818cf8'">Forgot Password?</a>
+          <a th:href="@{/forgot-password}" style="color:var(--accent-light); font-size:14px; text-decoration:none;">Forgot Password?</a>
         </div>
-        
-        <button type="submit" id="loginBtn">
-          <span id="btnText">Login</span>
-          <div id="btnSpinner" class="loading-spinner"></div>
-        </button>
-        
-        <p style="text-align: center; margin-top: 20px; color: var(--text-muted); font-size: 14px;">
-          Don't have an account? <a href="register.html" style="color: var(--accent-light); text-decoration: none; font-weight: 600; transition: color 0.3s;" onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='#818cf8'">Sign up</a>
+
+        <button type="submit">Login</button>
+
+        <p style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:14px;">
+          Don't have an account? <a th:href="@{/register}" style="color:var(--accent-light); text-decoration:none; font-weight:600;">Sign up</a>
         </p>
       </form>
     </div>
@@ -215,89 +80,6 @@
     <p>© 2025 RentTOgo. Your trusted PG and hostel finder.</p>
   </footer>
 
-  <script>
-    // Demo credentials (hidden from UI)
-    const DEMO_EMAIL = 'demo@renttogo.com';
-    const DEMO_PASSWORD = 'demo123';
-
-    function handleLogin(event) {
-      event.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const loginBtn = document.getElementById('loginBtn');
-      const btnText = document.getElementById('btnText');
-      const btnSpinner = document.getElementById('btnSpinner');
-      const successMsg = document.getElementById('successMessage');
-      const errorMsg = document.getElementById('errorMessage');
-      
-      // Hide any previous messages
-      successMsg.style.display = 'none';
-      errorMsg.style.display = 'none';
-      
-      // Show loading state
-      loginBtn.disabled = true;
-      btnText.style.display = 'none';
-      btnSpinner.style.display = 'block';
-      
-      // Simulate authentication delay
-      setTimeout(() => {
-        // Check credentials
-        if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-          // Store user session data
-          const userData = {
-            email: email,
-            name: 'Demo User',
-            loginTime: new Date().toISOString(),
-            isLoggedIn: true
-          };
-          
-          // Using in-memory storage (as per requirements, not localStorage)
-          window.userSession = userData;
-          
-          // Show success message
-          successMsg.style.display = 'block';
-          
-          // Redirect to dashboard after 1.2 seconds
-          setTimeout(() => {
-            window.location.href = 'dashboard.html';
-          }, 1200);
-        } else {
-          // Show error message
-          errorMsg.style.display = 'block';
-          
-          // Reset button state
-          loginBtn.disabled = false;
-          btnText.style.display = 'block';
-          btnSpinner.style.display = 'none';
-          
-          // Clear password field
-          document.getElementById('password').value = '';
-          document.getElementById('password').focus();
-          
-          // Hide error after 3 seconds
-          setTimeout(() => {
-            errorMsg.style.display = 'none';
-          }, 3000);
-        }
-      }, 800);
-    }
-
-    // Check if user is already logged in
-    window.addEventListener('DOMContentLoaded', function() {
-      if (window.userSession && window.userSession.isLoggedIn) {
-        window.location.href = 'dashboard.html';
-      }
-    });
-
-    // Auto-fill for quick testing (optional - remove in production)
-    // Uncomment the lines below if you want to auto-fill for faster testing
-    /*
-    window.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('email').value = DEMO_EMAIL;
-      document.getElementById('password').value = DEMO_PASSWORD;
-    });
-    */
-  </script>
+  <!-- No client-side demo login script — server handles authentication -->
 </body>
 </html>

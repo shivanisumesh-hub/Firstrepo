@@ -13,7 +13,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // disabled for demo
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/", "/home", "/login", "/api/**").permitAll()
+                .requestMatchers(
+                    "/css/**",
+                    "/js/**",
+                    "/",
+                    "/home",
+                    "/login",
+                    "/doLogin",   // allow custom login POST through
+                    "/api/**"
+                ).permitAll()
                 .anyRequest().authenticated() // dashboard, PG listings, transaction require login
             )
             .formLogin(form -> form
