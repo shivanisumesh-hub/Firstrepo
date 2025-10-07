@@ -66,7 +66,3 @@ CREATE TABLE IF NOT EXISTS rental_record (
   returned BOOLEAN
 );
 
-INSERT INTO accommodation (name,address,city,price_per_month,contact_number,total_rooms,available_rooms)
-VALUES 
-('Blue Oak PG','Near KTU Campus, Trivandrum','Trivandrum',6000,'+91-987650001',20,6),
-('Green Stay Hostel','Near College Road, Kochi','Kochi',4500,'+91-987650002',15,3);
