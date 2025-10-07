@@ -11,10 +11,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // keep disabled for dev; enable later
+            .csrf(csrf -> csrf.disable()) // disabled for demo
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/js/**", "/", "/home", "/login", "/api/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().authenticated() // dashboard, PG listings, transaction require login
             )
             .formLogin(form -> form
                 .loginPage("/login")

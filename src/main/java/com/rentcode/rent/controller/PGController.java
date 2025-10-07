@@ -2,7 +2,6 @@ package com.rentcode.rent.controller;
 
 import com.rentcode.rent.entity.Accommodation;
 import com.rentcode.rent.service.PGService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
